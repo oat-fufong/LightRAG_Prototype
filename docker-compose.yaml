@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: lightrag_prototype
+    ports:
+      - "9621:9621"
+    volumes:
+      - ./data:/app/data           
+      - .env:/app/.env:ro         
+    env_file:
+      - .env                       
+    restart: unless-stopped
