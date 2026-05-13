@@ -50,13 +50,13 @@ local_neo4jWorkDir/
 neo4jWorkDir/
 
 # Data & Storage
-inputs/*
+data/inputs/*
 output/
-rag_storage/*
+data/rag_storage/*
 data/
-!inputs/.gitkeep
-!inputs/__enqueued__/.gitkeep
-!rag_storage/.gitkeep
+!data/inputs/.gitkeep
+!data/inputs/__enqueued__/.gitkeep
+!data/rag_storage/.gitkeep
 
 # Runtime-provided entity type prompt profiles (keep sample files only)
 prompts/entity_type/
