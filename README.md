@@ -28,7 +28,7 @@ source .venv/bin/activate # (Linux/macOS)
 * Dependencies Installation & Environment Variables
 ```bash
 # Copy .env template
-cp env.example .env 
+cp env.poc .env 
 # Update the .env, specifically: 
 # LLM_BINDING_HOST, LLM_BINDING_API_KEY, LLM_MODEL
 # EMBEDDING_BINDING_HOST, EMBEDDING_BINDING_API_KEY, EMBEDDING_MODEL
