@@ -11,7 +11,7 @@ pipeline {
         }
         stage('First Run') {
             environment {
-                CONTAINER_NAME=lightrag:test
+                CONTAINER_NAME="lightrag:test"
             }
             steps {
                 withCredentials([
