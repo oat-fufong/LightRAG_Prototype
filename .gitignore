@@ -16,6 +16,7 @@ venv/
 .env.*
 !.env.poc
 !.env.original
+!.env.poc.template
 .env.backup.*
 
 # Generated Docker Compose files (output of setup wizard)
