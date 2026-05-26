@@ -16,8 +16,8 @@ env:
 			echo "Create one: cp .env.example .env"; \
 	fi
 
-build-%:
-	docker build -t $* .
+build:
+	docker build -t $(CONTAINER_NAME)  .
 
 run:
 	@printenv > ./.env.override
