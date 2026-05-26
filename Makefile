@@ -12,7 +12,7 @@ help:
 	@echo make build        - Build docker image
 	@echo make run        	- Start docker container
 	@echo make env 					- Check if .env exists 
-	@echo make clean				- Clean repository
+	@echo make clean				- Remove .env.temp
 
 env:
 	@if [ -f .env ]; then \
