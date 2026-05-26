@@ -30,7 +30,7 @@ run:
 	docker run --rm --env-file .env.temp -p $(HOST_PORT):$(PORT) $(CONTAINER_NAME) 
 
 clean:
-	@rm .env.temp
+	@rm -f .env.temp
 
 
 	
