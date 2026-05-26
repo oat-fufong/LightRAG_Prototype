@@ -13,6 +13,9 @@ venv/
 
 # Enviroment Variable Files
 .env
+.env.*
+!.env.poc
+!.env.original
 .env.backup.*
 
 # Generated Docker Compose files (output of setup wizard)
