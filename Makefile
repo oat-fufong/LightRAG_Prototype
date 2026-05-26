@@ -1,4 +1,6 @@
 HOST_PORT=9126
+PORT=9126
+CONTAINER_NAME=lightrag:test
 
 help:
 	@echo make build        - Build docker image
@@ -17,9 +19,9 @@ env:
 build-%:
 	docker build -t $* .
 
-run-%:
+run:
 	@printenv > ./.env.override
-	docker run --rm --env-file .env --env-file .env.override -p $(HOST_PORT):$(PORT) $* 
+	docker run --rm --env-file .env --env-file .env.override -p $(HOST_PORT):$(PORT) $(CONTAINER_NAME) 
 	@rm .env.override
 
 clean:
