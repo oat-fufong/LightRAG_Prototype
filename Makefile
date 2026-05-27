@@ -1,6 +1,7 @@
 HOST_PORT=9126
 PORT=9126
-CONTAINER_NAME=lightrag:test
+CONTAINER_NAME=lightrag
+CONTAINER_TAG=test
 
 HTTP_PROXY  ?=
 HTTPS_PROXY ?=
@@ -35,7 +36,7 @@ build:
 
 run:
 	envsubst < .env.poc.template > .env.temp
-	docker run --rm --env-file .env.temp -p $(HOST_PORT):$(PORT) $(CONTAINER_NAME) 
+	docker run --rm --env-file .env.temp -p $(HOST_PORT):$(PORT) $(CONTAINER_NAME):$(CONTAINER_TAG)
 
 clean:
 	@rm -f .env.temp
