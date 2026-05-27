@@ -4,9 +4,12 @@ pipeline {
     stages {
         stage('Prepare LightRAG Server') {
             steps {
-                sh '''
-                    make clean build
-                '''
+                sh """
+                make clean build \\
+                    --build-arg HTTP_PROXY=\$HTTP_PROXY \\
+                    --build-arg HTTPS_PROXY=\$HTTPS_PROXY \\
+                    --build-arg NO_PROXY=\$NO_PROXY
+                """
             }
         }
         stage('First Run') {
@@ -18,20 +21,22 @@ pipeline {
                     string(
                         credentialsId: 'openrouter-api-key',
                         variable: 'OPENROUTER_API_KEY'
-                )])
-                script {
-                    sh """
-                    make build-${CONTAINER_NAME} \\
-                        LLM_BINDING=openai \\
-                        LLM_BINDING_HOST=https://openrouter.ai/api/v1 \\
-                        LLM_MODEL=deepseek/deepseek-v4-flash \\
-                        LLM_BINDING_API_KEY=\"$OPENROUTER_API_KEY\" \\
-                        EMBEDDING_BINDING=openai \\
-                        EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \\
-                        EMBEDDING_MODEL=openai/text-embedding-3-small \\
-                        EMBEDDING_BINDING_API_KEY=\"$OPENROUTER_API_KEY\" \\
-                        run
-                    """
+                    )
+                ]) {                        
+                    script {
+                        sh """
+                        make build-${CONTAINER_NAME} \\
+                            LLM_BINDING=openai \\
+                            LLM_BINDING_HOST=https://openrouter.ai/api/v1 \\
+                            LLM_MODEL=deepseek/deepseek-v4-flash \\
+                            LLM_BINDING_API_KEY="\$OPENROUTER_API_KEY" \\
+                            EMBEDDING_BINDING=openai \\
+                            EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \\
+                            EMBEDDING_MODEL=openai/text-embedding-3-small \\
+                            EMBEDDING_BINDING_API_KEY="\$OPENROUTER_API_KEY" \\
+                            run
+                        """
+                    }
                 }
             }
         }
