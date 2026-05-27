@@ -25,7 +25,7 @@ pipeline {
                 ]) {                        
                     script {
                         sh """
-                        make build-${CONTAINER_NAME} \\
+                        make build \\
                             LLM_BINDING=openai \\
                             LLM_BINDING_HOST=https://openrouter.ai/api/v1 \\
                             LLM_MODEL=deepseek/deepseek-v4-flash \\
@@ -34,7 +34,7 @@ pipeline {
                             EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \\
                             EMBEDDING_MODEL=openai/text-embedding-3-small \\
                             EMBEDDING_BINDING_API_KEY="\$OPENROUTER_API_KEY" \\
-                        make run 
+                            run 
                         """
                     }
                 }
