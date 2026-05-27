@@ -14,8 +14,6 @@ COPY uv.lock .
 RUN uv venv
 RUN . .venv/bin/activate 
 
-RUN uv pip install --no-deps git+https://github.com/HKUDS/LightRAG.git@v1.4.16
-
 RUN uv sync
 
 COPY . .
