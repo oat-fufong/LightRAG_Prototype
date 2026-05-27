@@ -2,6 +2,10 @@ HOST_PORT=9126
 PORT=9126
 CONTAINER_NAME=lightrag:test
 
+HTTP_PROXY  ?=
+HTTPS_PROXY ?=
+NO_PROXY    ?=
+
 # load .env as environment variable
 ifneq (,$(wildcard .env))
     include .env
@@ -23,7 +27,11 @@ env:
 	fi
 
 build:
-	docker build -t $(CONTAINER_NAME)  .
+    docker build \
+        --build-arg HTTP_PROXY=$(HTTP_PROXY) \
+        --build-arg HTTPS_PROXY=$(HTTPS_PROXY) \
+        --build-arg NO_PROXY=$(NO_PROXY) \
+        -t $(CONTAINER_NAME)  .
 
 run:
 	envsubst < .env.poc.template > .env.temp

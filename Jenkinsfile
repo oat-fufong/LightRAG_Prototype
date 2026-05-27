@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Prepare LightRAG Server') {
             steps {
-                sh """
-                make clean build \\
-                    --build-arg HTTP_PROXY=\$HTTP_PROXY \\
-                    --build-arg HTTPS_PROXY=\$HTTPS_PROXY \\
-                    --build-arg NO_PROXY=\$NO_PROXY
-                """
+            sh '''
+                make clean build \
+                    HTTP_PROXY=http://10.0.0.3:3128 \
+                    HTTPS_PROXY=http://10.0.0.3:3128 \
+                    NO_PROXY=localhost,127.0.0.1,metadata.google.internal
+            '''
             }
         }
         stage('First Run') {
