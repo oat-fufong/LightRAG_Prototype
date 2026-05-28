@@ -11,6 +11,16 @@ WORKDIR /app
 COPY pyproject.toml .
 COPY uv.lock .
 
+RUN uv venv
+RUN . .venv/bin/activate 
+
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ARG NO_PROXY
+ENV HTTP_PROXY=$HTTP_PROXY
+ENV HTTPS_PROXY=$HTTPS_PROXY
+ENV NO_PROXY=$NO_PROXY
+
 RUN uv sync
 
 COPY . .
