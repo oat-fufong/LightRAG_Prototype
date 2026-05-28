@@ -1,7 +1,9 @@
-HOST_PORT=9126
-PORT=9126
+HOST_PORT=9621
+PORT=9621
+
 CONTAINER_NAME=lightrag
-CONTAINER_TAG=test
+IMAGE_NAME=lightrag
+IMAGE_TAG=test
 
 HTTP_PROXY  ?=
 HTTPS_PROXY ?=
@@ -32,11 +34,21 @@ build:
 		--build-arg HTTP_PROXY="$(HTTP_PROXY)" \
 		--build-arg HTTPS_PROXY="$(HTTPS_PROXY)" \
 		--build-arg NO_PROXY="$(NO_PROXY)" \
-		-t $(CONTAINER_NAME) .
+		-t $(IMAGE_NAME_NAME) .
 
 run:
 	envsubst < .env.poc.template > .env.temp
-	docker run --rm --env-file .env.temp -p $(HOST_PORT):$(PORT) $(CONTAINER_NAME):$(CONTAINER_TAG)
+
+	# -d run docker in detached mode.
+	# -rm automatically delete the container as soon as it stops running.
+	docker run -d --rm \
+		--env-file .env.temp \
+		-p $(HOST_PORT):$(PORT) \
+		--name $(CONTAINER_NAME) \
+		$(IMAGE_NAME):$(IMAGE_TAG) \
+
+stop:
+	docker stop $(CONTAINER_NAME)
 
 clean:
 	@rm -f .env.temp
