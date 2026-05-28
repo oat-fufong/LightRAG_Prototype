@@ -2,7 +2,7 @@ pipeline {
     agent { label 'gpu' }
 
     stages {
-        stage('Prepare LightRAG Server') {
+        stage('Prepare LightRAG Server & Proxy') {
             steps {
             sh '''
                 make clean build \
@@ -12,9 +12,9 @@ pipeline {
             '''
             }
         }
-        stage('First Run') {
+        stage('Start Container') {
             environment {
-                CONTAINER_NAME="lightrag:test"
+                IMAGE_NAME="lightrag:test"
             }
             steps {
                 withCredentials([
