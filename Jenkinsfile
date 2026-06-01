@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    make python
+                    make python \$LIGHTRAG_HOST_PORT
                     '''
                 }
             }
