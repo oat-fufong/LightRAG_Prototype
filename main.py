@@ -1,11 +1,18 @@
 import requests
 import sys
 import os
+from requests.adapters import HTTPAdapter, Retry
 
 # CONFIGURATION
 BASE_URL = f"http://localhost:{sys.argv[1]}" 
 
 client = requests.Session()
+
+retries = Retry(total=10,
+                backoff_factor=0.1,
+                status_forcelist=[ 500, 502, 503, 504 ])
+
+client.mount('http://', HTTPAdapter(max_retries=retries))
 
 def check_health():
     try:
