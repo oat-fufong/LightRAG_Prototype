@@ -52,7 +52,7 @@ python:
 	python3 main.py
 
 
-clean:
+clean: stop
 	@rm -f .env.temp
 
 
