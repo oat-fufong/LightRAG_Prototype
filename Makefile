@@ -1,6 +1,11 @@
-HTTP_PROXY  ?=
-HTTPS_PROXY ?=
-NO_PROXY    ?=
+HTTP_PROXY ?= 'http://10.0.0.3:3128'
+HTTPS_PROXY ?= 'http://10.0.0.3:3128'
+NO_PROXY ?= 'localhost,127.0.0.1,metadata.google.internal'
+LIGHTRAG_HOST_PORT ?= '9621'
+LIGHTRAG_PORT ?= '9621'
+CONTAINER_NAME ?= 'lightrag'
+IMAGE_NAME ?= 'lightrag'
+IMAGE_TAG ?= 'test'
 
 # load .env as environment variable
 ifneq (,$(wildcard .env))
