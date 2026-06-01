@@ -41,7 +41,7 @@ run:
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
 		--env-file .env.temp \
-		-p $(HOST_PORT):$(PORT) \
+		-p $(LIGHTRAG_HOST_PORT):$(LIGHTRAG_PORT) \
 		--name $(CONTAINER_NAME) \
 		$(IMAGE_NAME):$(IMAGE_TAG) \
 
