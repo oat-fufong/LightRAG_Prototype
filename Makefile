@@ -1,10 +1,3 @@
-HOST_PORT=9621
-PORT=9621
-
-CONTAINER_NAME=lightrag
-IMAGE_NAME=lightrag
-IMAGE_TAG=test
-
 HTTP_PROXY  ?=
 HTTPS_PROXY ?=
 NO_PROXY    ?=
@@ -49,6 +42,10 @@ run:
 
 stop:
 	docker stop $(CONTAINER_NAME)
+
+python:
+	python3 main.py
+
 
 clean:
 	@rm -f .env.temp
