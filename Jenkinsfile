@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'gpu' }
+    agent { label 'gpu-agent-2' }
 
     environment {
         HTTP_PROXY = 'http://10.0.0.3:3128'
