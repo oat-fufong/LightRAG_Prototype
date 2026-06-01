@@ -63,12 +63,12 @@ pipeline {
                 }
             }
         }
-         post {
+    }
+    post {
             always{
                 sh '''
                 make stop
                 '''
             }
          }
-    }
 }
