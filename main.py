@@ -1,18 +1,24 @@
 import requests
+import sys
 import os
 
 # CONFIGURATION
-BASE_URL = "http://localhost:9621" 
+BASE_URL = f"http://localhost:{sys.argv[1]}" 
 
 client = requests.Session()
 
 def check_health():
     try:
-        response = client.get(f"{BASE_URL}/health") # OR /status or /ping
+        response = client.get(f"{BASE_URL}/health")
         response.raise_for_status()
-        return response.json()
+        status = response.json()
+        print(f"""
+        status          : {status['status']}
+        llm_model       : {status['configuration']['llm_model']}
+        embedding_model : {status['configuration']['embedding_model']}
+        """)
     except requests.exceptions.RequestException as err:
-        return f"Error: {err}"
+        print(f"Error: {err}")
 
 def upload_doc(path_to_doc):
     try:
@@ -43,9 +49,4 @@ def reprocess_doc():
         return f"Upload Error: {str(e)}"
 
 if __name__ == "__main__":
-    status = check_health()
-    print(f"""
-        status : {status['status']}
-        llm_model : {status['configuration']['llm_model']}
-        embedding_model : {status['configuration']['embedding_model']}
-    """)
+    check_health()
