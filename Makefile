@@ -46,7 +46,7 @@ run:
 		$(IMAGE_NAME):$(IMAGE_TAG) \
 
 stop:
-	docker stop $(CONTAINER_NAME)
+	docker stop $(CONTAINER_NAME) || true
 
 python:
 	python3 main.py $(LIGHTRAG_HOST_PORT)
