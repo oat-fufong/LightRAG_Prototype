@@ -49,7 +49,7 @@ stop:
 	docker stop $(CONTAINER_NAME)
 
 python:
-	python3 main.py
+	python3 main.py $(LIGHTRAG_HOST_PORT)
 
 
 clean: stop
