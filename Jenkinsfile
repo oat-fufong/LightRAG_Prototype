@@ -7,9 +7,9 @@ pipeline {
         NO_PROXY = 'localhost,127.0.0.1,metadata.google.internal'
         LIGHTRAG_HOST_PORT = '9621'
         LIGHTRAG_PORT = '9621'
-        CONTAINER_NAME='lightrag'
-        IMAGE_NAME='lightrag'
-        IMAGE_TAG='test'
+        CONTAINER_NAME = 'lightrag'
+        IMAGE_NAME = 'lightrag'
+        IMAGE_TAG = 'test'
     }
 
     stages {
@@ -46,14 +46,22 @@ pipeline {
             }
         }
         stage('Run Python Script') {
-            sh '''
-            make python
-            '''
+            steps {
+                script {
+                    sh '''
+                    make python
+                    '''
+                }
+            }
         }
         stage('Stop Docker & Clean Up') {
-            sh '''
-            make stop
-            '''
+            steps {
+                script {
+                    sh '''
+                    make stop
+                    '''
+                }
+            }
         }
     }
 }
