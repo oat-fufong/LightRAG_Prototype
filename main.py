@@ -152,7 +152,7 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             reprocess_doc()
         
         # Check if processing is complete
-        if (all_count - failed) == total_files:
+        if processing == 0 and pending == 0 and preprocessed == 0:
             print(f"\nAll processing complete!")
             print(f"Processed: {processed}/{all_count}")
             return counts['processed']
