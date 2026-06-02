@@ -28,7 +28,7 @@ pipeline {
             steps {
                 withCredentials([
                     string(
-                        credentialsId: 'openai-api-key',
+                        credentialsId: 'openai-api-key-test',
                         variable: 'OPENAI_API_KEY'
                     )
                 ]) {
