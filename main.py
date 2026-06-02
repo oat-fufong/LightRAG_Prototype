@@ -144,7 +144,7 @@ def wait_until_processing_complete(check_interval=CHECK_INTERVAL):
         print(f"  [{current_time}] [{checked_count}] [{all_status}] ({percent_done:.1f}%)")
         
         # Check if any documents failed
-        if failed > 0:
+        if failed > 10:
             print(f"\n{failed} document(s) FAILED during processing!")
             failed_count += 1
             reprocess_doc()
