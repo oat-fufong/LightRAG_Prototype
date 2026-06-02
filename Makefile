@@ -43,15 +43,13 @@ run:
 	echo "${#EMBEDDING_BINDING_API_KEY}"
 	echo "${#CONTAINER_NAME}"
 
-	curl https://openrouter.ai/api/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: ${EMBEDDING_BINDING_API_KEY}" \
-  -d '{ 
-    "model": "openrouter/free",
-    "messages": [
-      {"role": "user", "content": "Say hello!"}
-    ]
-  }'
+	curl -s https://openrouter.ai/api/v1/chat/completions \
+			-H "Content-Type: application/json" \
+			-H "Authorization: Bearer $${OPENAI_API_KEY}" \
+			-d '{ 
+					"model": "openrouter/free",
+					"messages": [{"role": "user", "content": "Say hello!"}]
+			}'
 
 	envsubst < .env.poc.template > .env.temp
 
