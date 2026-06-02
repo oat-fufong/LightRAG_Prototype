@@ -154,7 +154,7 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             failed_count += 1
             reprocess_doc()
         
-        print(get_pipeline_status())
+        # print(get_pipeline_status())
 
         # Wait until processed + failed == total_files
         if (processed + failed) >= total_files:
