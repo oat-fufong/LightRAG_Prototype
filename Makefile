@@ -53,7 +53,7 @@ stop:
 
 python:
 	python3 main.py \
-		$(LIGHTRAG_HOST_PORT) \ 
+		$(LIGHTRAG_HOST_PORT) \
 		$(HOST_INPUT_DIR) \
 	 	$(FILE_TO_PROCESS) \
 	  $(CHECK_INTERVAL_RAW) \
