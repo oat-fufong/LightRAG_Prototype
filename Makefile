@@ -6,8 +6,8 @@ LIGHTRAG_PORT ?= '9621'
 CONTAINER_NAME ?= 'lightrag'
 IMAGE_NAME ?= 'lightrag'
 IMAGE_TAG ?= 'test'
-HOST_INPUT_DIR ?= '/'
-HOST_OUTPUT_DIR ?= '/'
+HOST_INPUT_DIR ?= '/oat/home'
+HOST_OUTPUT_DIR ?= '/oat/home'
 
 # load .env as environment variable
 ifneq (,$(wildcard .env))
