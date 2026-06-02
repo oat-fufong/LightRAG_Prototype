@@ -64,7 +64,7 @@ pipeline {
                 make copy stop
                 '''
             }
-            failure{
+            unsuccessful{
                 sh '''
                 make stop
                 '''
