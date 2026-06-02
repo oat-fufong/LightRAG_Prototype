@@ -63,6 +63,7 @@ clean: stop
 	@rm -f .env.temp
 
 copy:
+	mkdir $(HOST_OUTPUT_DIR)/$(IMAGE_TAG)
 	docker cp $(CONTAINER_NAME):/app/data $(HOST_OUTPUT_DIR)/$(IMAGE_TAG)
 	
 
