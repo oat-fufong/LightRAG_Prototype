@@ -8,8 +8,8 @@ from requests.adapters import HTTPAdapter, Retry
 
 # CONFIGURATION
 BASE_URL = f"http://localhost:{sys.argv[1]}" 
-HOST_INPUT_DIR = os.environ.get('HOST_INPUT_DIR', '/mnt/filestore/ffl-chatbot/prb')
-CONTAINER_INPUT_DIR = os.environ.get('CONTAINER_INPUT_DIR', '/workspace/input')
+HOST_INPUT_DIR = os.environ.get('HOST_INPUT_DIR')
+CONTAINER_INPUT_DIR = os.environ.get('CONTAINER_INPUT_DIR')
 FILE_TO_PROCESS = os.environ.get('FILE_TO_PROCESS', 'all')  # 'all' = process everything
 CHECK_INTERVAL_RAW = int(os.environ.get('CHECK_INTERVAL'))  # Check every x seconds
 
