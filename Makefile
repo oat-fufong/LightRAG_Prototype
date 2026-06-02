@@ -9,7 +9,6 @@ IMAGE_TAG ?= 'test'
 HOST_INPUT_DIR ?= '/oat/home'
 HOST_OUTPUT_DIR ?= '/oat/home'
 CONTAINER_INPUT_DIR ?= '/workspace/input'
-CONTAINER_OUTPUT_DIR ?= '/workspace/output'
 
 # load .env as environment variable
 ifneq (,$(wildcard .env))

@@ -10,6 +10,8 @@ pipeline {
         CONTAINER_NAME = 'lightrag'
         IMAGE_NAME = 'lightrag'
         IMAGE_TAG = 'test'
+        HOST_INPUT_DIR='/mnt/filestore/ffl-chatbot/prb' 
+        FILE_TO_PROCESS='1' 
     }
 
     stages {
@@ -30,12 +32,6 @@ pipeline {
                 ]) {
                     script {
                         sh """
-                        export HOST_INPUT_DIR='/mnt/filestore/ffl-chatbot/prb' 
-                        export HOST_OUTPUT_DIR='/home/oat/test' 
-                        export CONTAINER_INPUT_DIR='/workspace/input'
-                        export CONTAINER_OUTPUT_DIR='/workspace/output'
-                        export FILE_TO_PROCESS='1' 
-
                         make build \\
                             LLM_BINDING=openai \\
                             LLM_BINDING_HOST=https://openrouter.ai/api/v1 \\
