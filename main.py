@@ -104,7 +104,7 @@ def get_status_counts():
     except Exception as e:
         return f"Upload Error: {str(e)}"
 
-def wait_until_processing_complete(check_interval=CHECK_INTERVAL):
+def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL):
     """
     Poll status_counts endpoint until processing is complete
     or a document failed
@@ -150,7 +150,7 @@ def wait_until_processing_complete(check_interval=CHECK_INTERVAL):
             reprocess_doc()
         
         # Check if processing is complete
-        if processing == 0 and pending == 0 and preprocessed == 0:
+        if (all_count - failed) == total_files:
             print(f"\nAll processing complete!")
             print(f"Processed: {processed}/{all_count}")
             return counts['processed']
@@ -176,12 +176,13 @@ if __name__ == "__main__":
 
     # Upload & Process Files 
     files = get_file_list()
+    total_files = len(files)
 
     if not files:
         print("⚠️  No files found to process!")
         sys.exit(0)
 
-    print(f"Found {len(files)} file(s) to process")
+    print(f"Found {total_files} file(s) to process")
 
     for filename in files:
         if upload_doc(filename):
@@ -191,7 +192,7 @@ if __name__ == "__main__":
             sys.exit(0)
 
     # Status Check
-    success_count = wait_until_processing_complete()
+    success_count = wait_until_processing_complete(total_files=total_files)
 
     # ✅ FINAL SUMMARY
     end_time = time.time()
