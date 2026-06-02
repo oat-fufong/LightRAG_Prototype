@@ -153,11 +153,12 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             print(f"\n{failed} document(s) FAILED during processing!")
             failed_count += 1
             reprocess_doc()
-        
-        # print(get_pipeline_status())
 
         # Wait until processed + failed == total_files
         if (processed + failed) >= total_files:
+
+            print(get_pipeline_status())
+
             print(f"\n✅ All processing complete!")
             print(f"Processed: {processed}/{total_files}")
             print(f"Failed: {failed}/{total_files}")
@@ -174,6 +175,7 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
     
     # Timeout
     print(f"\n⚠️  Timeout: Processing not complete after {failed_count} fails")
+    print(get_pipeline_status())
     sys.exit(0)
 
 def formatted_time(seconds):
