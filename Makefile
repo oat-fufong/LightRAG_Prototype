@@ -6,6 +6,9 @@ LIGHTRAG_PORT ?= '9621'
 CONTAINER_NAME ?= 'lightrag'
 IMAGE_NAME ?= 'lightrag'
 IMAGE_TAG ?= 'test'
+HOST_INPUT_DIR ?= ''
+FILE_TO_PROCESS ?= 'all'
+CHECK_INTERVAL_RAW ?= '1200'
 
 # load .env as environment variable
 ifneq (,$(wildcard .env))
@@ -49,7 +52,11 @@ stop:
 	docker stop $(CONTAINER_NAME) || true
 
 python:
-	python3 main.py $(LIGHTRAG_HOST_PORT) 
+	python3 main.py \
+		$(LIGHTRAG_HOST_PORT) \ 
+		$(HOST_INPUT_DIR) \
+	 	$(FILE_TO_PROCESS) \
+	  $(CHECK_INTERVAL_RAW) \
 
 clean: stop
 	@rm -f .env.temp

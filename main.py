@@ -8,9 +8,9 @@ from requests.adapters import HTTPAdapter, Retry
 
 # CONFIGURATION
 BASE_URL = f"http://localhost:{sys.argv[1]}" 
-HOST_INPUT_DIR = os.environ.get('HOST_INPUT_DIR')
-FILE_TO_PROCESS = os.environ.get('FILE_TO_PROCESS', 'all')  # 'all' = process everything
-CHECK_INTERVAL_RAW = os.environ.get('CHECK_INTERVAL')  # Check every x seconds
+HOST_INPUT_DIR = sys.argv[2]
+FILE_TO_PROCESS = sys.argv[3]  # 'all' = process everything
+CHECK_INTERVAL_RAW = sys.argv[4]  # Check every x seconds
 
 REQUIRED_VARS = [HOST_INPUT_DIR, CHECK_INTERVAL_RAW]
 if any(var is None for var in REQUIRED_VARS):
