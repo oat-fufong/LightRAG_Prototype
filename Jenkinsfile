@@ -45,11 +45,18 @@ pipeline {
                             EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \\
                             EMBEDDING_MODEL=openai/text-embedding-3-small \\
                             EMBEDDING_BINDING_API_KEY="\$OPENROUTER_API_KEY" \\
-                            run \\
-
-                        make python
+                            run
                         """
                     }
+                }
+            }
+        }
+        stage('Run Python Script') {
+            steps {
+                script {
+                    sh '''
+                    make python
+                    '''
                 }
             }
         }
