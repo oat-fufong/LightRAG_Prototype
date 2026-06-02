@@ -11,6 +11,7 @@ pipeline {
         IMAGE_NAME = 'lightrag'
         IMAGE_TAG = 'test'
         HOST_INPUT_DIR = '/mnt/filestore/ffl-chatbot/prb' 
+        HOST_OUTPUT_DIR = '/oat/home' 
         FILE_TO_PROCESS = '1' 
         CHECK_INTERVAL_RAW = '5'
     }
