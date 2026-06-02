@@ -41,6 +41,7 @@ run:
 	export LLM_BINDING_API_KEY=$(LLM_BINDING_API_KEY)
 	export EMBEDDING_BINDING_API_KEY=$(EMBEDDING_BINDING_API_KEY)
 	echo "${#EMBEDDING_BINDING_API_KEY}"
+	echo "${#CONTAINER_NAME}"
 	envsubst < .env.poc.template > .env.temp
 
 	# -d run docker in detached mode.
