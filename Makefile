@@ -39,7 +39,7 @@ build:
 
 run:
 	envsubst < .env.poc.template > .env.temp
-	
+
 	# -d run docker in detached mode.
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
@@ -62,6 +62,7 @@ python:
 	  $(CHECK_INTERVAL_RAW) \
 
 clean: stop
+	ls -al
 	@rm -f .env.temp
 
 copy:
