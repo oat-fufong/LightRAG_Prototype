@@ -3,11 +3,8 @@ import sys
 import os
 import glob
 import time
-from dotenv import load_dotenv
 from datetime import timedelta
 from requests.adapters import HTTPAdapter, Retry
-
-load_dotenv(".env.temp")
 
 # CONFIGURATION
 BASE_URL = f"http://localhost:{sys.argv[1]}" 
