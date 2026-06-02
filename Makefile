@@ -6,6 +6,8 @@ LIGHTRAG_PORT ?= '9621'
 CONTAINER_NAME ?= 'lightrag'
 IMAGE_NAME ?= 'lightrag'
 IMAGE_TAG ?= 'test'
+HOST_INPUT_DIR ?= '/'
+HOST_OUTPUT_DIR ?= '/'
 
 # load .env as environment variable
 ifneq (,$(wildcard .env))
@@ -41,6 +43,8 @@ run:
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
 		--env-file .env.temp \
+		-v $(HOST_INPUT_DIR):/workspace/input \
+		-v $(HOST_OUTPUT_DIR):/workspace/output \
 		-p $(LIGHTRAG_HOST_PORT):$(LIGHTRAG_PORT) \
 		--name $(CONTAINER_NAME) \
 		$(IMAGE_NAME):$(IMAGE_TAG) \
@@ -49,8 +53,7 @@ stop:
 	docker stop $(CONTAINER_NAME) || true
 
 python:
-	python3 main.py $(LIGHTRAG_HOST_PORT)
-
+	python3 main.py $(LIGHTRAG_HOST_PORT) 
 
 clean: stop
 	@rm -f .env.temp
