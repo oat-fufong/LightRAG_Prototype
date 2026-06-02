@@ -35,7 +35,7 @@ build:
 		--build-arg HTTP_PROXY="$(HTTP_PROXY)" \
 		--build-arg HTTPS_PROXY="$(HTTPS_PROXY)" \
 		--build-arg NO_PROXY="$(NO_PROXY)" \
-		-t $(IMAGE_NAME) .
+		-t $(IMAGE_NAME):$(IMAGE_TAG) .
 
 run:
 	envsubst < .env.poc.template > .env.temp
