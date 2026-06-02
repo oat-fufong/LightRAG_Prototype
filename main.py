@@ -154,6 +154,8 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             failed_count += 1
             reprocess_doc()
         
+        print(get_pipeline_status())
+
         # Wait until processed + failed == total_files
         if (processed + failed) >= total_files:
             print(f"\n✅ All processing complete!")
@@ -177,6 +179,18 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
 def formatted_time(seconds):
     """Format seconds into human-readable time"""
     return str(timedelta(seconds=int(seconds)))
+
+def get_pipeline_status():
+    try:
+        response = client.get(f"{BASE_URL}/documents/pipeline_status")
+        response.raise_for_status()
+        result = response.json()
+
+        return result
+    except requests.exceptions.HTTPError as e:
+        return f"HTTP Error: {e.response.status_code} - {e.response.text}"
+    except Exception as e:
+        return f"Upload Error: {str(e)}"
 
 if __name__ == "__main__":
     print("=" * 70)
