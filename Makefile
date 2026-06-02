@@ -52,7 +52,8 @@ stop:
 	docker stop $(CONTAINER_NAME) || true
 
 python:
-	python3 main.py \
+	# -u unbuffer the output for real-time update
+	python3 -u main.py \
 		$(LIGHTRAG_HOST_PORT) \
 		$(HOST_INPUT_DIR) \
 	 	$(FILE_TO_PROCESS) \
