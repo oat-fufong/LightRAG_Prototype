@@ -39,11 +39,13 @@ build:
 
 run:
 	envsubst < .env.poc.template > .env.temp
-	curl https://openrouter.ai/api/v1/key  -H "Authorization: Bearer ${LLM_BINDING_API_KEY}"
+	
 	# -d run docker in detached mode.
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
 		--env-file .env.temp \
+		-e LLM_BINDING_API_KEY=$(LLM_BINDING_API_KEY) \
+		-e EMBEDDING_BINDING_API_KEY=$(EMBEDDING_BINDING_API_KEY) \
 		-p $(LIGHTRAG_HOST_PORT):$(LIGHTRAG_PORT) \
 		--name $(CONTAINER_NAME) \
 		$(IMAGE_NAME):$(IMAGE_TAG) \
