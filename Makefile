@@ -39,7 +39,7 @@ build:
 
 run:
 	envsubst < .env.poc.template > .env.temp
-	curl https://openrouter.ai/api/v1/key  -H "Authorization: Bearer ${oattest}"
+	curl https://openrouter.ai/api/v1/key  -H "Authorization: Bearer ${LLM_BINDING_API_KEY}"
 	# -d run docker in detached mode.
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
