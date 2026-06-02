@@ -39,7 +39,6 @@ build:
 
 run:
 	envsubst < .env.poc.template > .env.temp
-	cat .env.temp
 	# -d run docker in detached mode.
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
