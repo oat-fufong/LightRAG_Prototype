@@ -46,17 +46,10 @@ pipeline {
                             EMBEDDING_MODEL=openai/text-embedding-3-small \\
                             EMBEDDING_BINDING_API_KEY="\$OPENROUTER_API_KEY" \\
                             run
+
+                        make python
                         """
                     }
-                }
-            }
-        }
-        stage('Run Python Script') {
-            steps {
-                script {
-                    sh '''
-                    make python
-                    '''
                 }
             }
         }
