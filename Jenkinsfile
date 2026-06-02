@@ -30,9 +30,9 @@ pipeline {
                 ]) {
                     script {
                         sh """
-                        export HOST_INPUT_DIR = '/mnt/filestore/ffl-chatbot/prb' 
-                        export HOST_OUTPUT_DIR = '/home/oat/test' 
-                        export FILE_TO_PROCESS = '1' 
+                        export HOST_INPUT_DIR='/mnt/filestore/ffl-chatbot/prb' 
+                        export HOST_OUTPUT_DIR='/home/oat/test' 
+                        export FILE_TO_PROCESS='1' 
                             LLM_BINDING=openai \\
                             LLM_BINDING_HOST=https://openrouter.ai/api/v1 \\
                             LLM_MODEL=deepseek/deepseek-v4-flash \\
