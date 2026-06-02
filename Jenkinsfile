@@ -33,18 +33,18 @@ pipeline {
                     )
                 ]) {
                     script {
-                        sh """
+                        sh '''
                         make build \
                             LLM_BINDING=openai \
                             LLM_BINDING_HOST=https://openrouter.ai/api/v1 \
                             LLM_MODEL=deepseek/deepseek-v4-flash \
-                            LLM_BINDING_API_KEY=\"$OPENROUTER_API_KEY\" \
+                            LLM_BINDING_API_KEY="$OPENROUTER_API_KEY" \
                             EMBEDDING_BINDING=openai \
                             EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \
                             EMBEDDING_MODEL=openai/text-embedding-3-small \
-                            EMBEDDING_BINDING_API_KEY=\"$OPENROUTER_API_KEY\" \
+                            EMBEDDING_BINDING_API_KEY="$OPENROUTER_API_KEY" \
                             run
-                        """
+                        '''
                     }
                 }
             }
