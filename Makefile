@@ -8,6 +8,8 @@ IMAGE_NAME ?= 'lightrag'
 IMAGE_TAG ?= 'test'
 HOST_INPUT_DIR ?= '/oat/home'
 HOST_OUTPUT_DIR ?= '/oat/home'
+CONTAINER_INPUT_DIR ?= '/workspace/input'
+CONTAINER_OUTPUT_DIR ?= '/workspace/output'
 
 # load .env as environment variable
 ifneq (,$(wildcard .env))
@@ -43,8 +45,8 @@ run:
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
 		--env-file .env.temp \
-		-v $(HOST_INPUT_DIR):/workspace/input \
-		-v $(HOST_OUTPUT_DIR):/workspace/output \
+		-v $(HOST_INPUT_DIR):$(CONTAINER_INPUT_DIR) \
+		-v $(HOST_OUTPUT_DIR):$(CONTAINER_OUTPUT_DIR) \
 		-p $(LIGHTRAG_HOST_PORT):$(LIGHTRAG_PORT) \
 		--name $(CONTAINER_NAME) \
 		$(IMAGE_NAME):$(IMAGE_TAG) \

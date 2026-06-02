@@ -32,6 +32,8 @@ pipeline {
                         sh """
                         export HOST_INPUT_DIR='/mnt/filestore/ffl-chatbot/prb' 
                         export HOST_OUTPUT_DIR='/home/oat/test' 
+                        export CONTAINER_INPUT_DIR='/workspace/input'
+                        export CONTAINER_OUTPUT_DIR='/workspace/output'
                         export FILE_TO_PROCESS='1' 
 
                         make build \\
