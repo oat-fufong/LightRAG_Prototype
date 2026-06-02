@@ -12,9 +12,7 @@ HOST_INPUT_DIR = sys.argv[2]
 FILE_TO_PROCESS = sys.argv[3]  # 'all' = process everything
 CHECK_INTERVAL_RAW = sys.argv[4]  # Check every x seconds
 
-API_KEY = os.environ.get("LLM_BINDING_API_KEY")
-
-REQUIRED_VARS = [HOST_INPUT_DIR, CHECK_INTERVAL_RAW, API_KEY]
+REQUIRED_VARS = [HOST_INPUT_DIR, CHECK_INTERVAL_RAW]
 if any(var is None for var in REQUIRED_VARS):
     print(f"Missing required environment variables. Exiting.")
     sys.exit(1)
@@ -25,16 +23,10 @@ CHECK_INTERVAL = int(CHECK_INTERVAL_RAW)
 
 client = requests.Session()
 
-headers = {
-    "api_key_header": API_KEY
-}
-
-
 retries = Retry(total=10,
                 backoff_factor=0.1,
                 status_forcelist=[ 500, 502, 503, 504 ])
 
-client.headers.update(headers)
 client.mount('http://', HTTPAdapter(max_retries=retries))
 
 # Start Timer
