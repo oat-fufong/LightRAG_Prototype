@@ -9,10 +9,10 @@ pipeline {
         LIGHTRAG_PORT = '9621'
         CONTAINER_NAME = 'lightrag'
         IMAGE_NAME = 'lightrag'
-        IMAGE_TAG = 'test'
+        IMAGE_TAG = 'small-data-set_2-9-11'
         HOST_INPUT_DIR = '/mnt/filestore/ffl-chatbot/prb' 
         HOST_OUTPUT_DIR = '/home/rapolt/workspace/lightrag-poc/run-lightrag-poc' 
-        FILE_TO_PROCESS = '0' 
+        FILE_TO_PROCESS = '2,9,11' 
         CHECK_INTERVAL_RAW = '5'
     }
 
