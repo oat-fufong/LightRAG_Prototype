@@ -61,10 +61,10 @@ pipeline {
     post {
             success{
                 sh'''
-                make copy
+                make copy stop
                 '''
             }
-            always{
+            failure{
                 sh '''
                 make stop
                 '''
