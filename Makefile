@@ -60,6 +60,9 @@ python:
 clean: stop
 	@rm -f .env.temp
 
+copy:
+	cp -r /data $(HOST_OUTPUT_DIR)/$(IMAGE_TAG)
+
 
 	
 

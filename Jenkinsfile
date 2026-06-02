@@ -71,6 +71,11 @@ pipeline {
         }
     }
     post {
+            success{
+                sh'''
+                make copy
+                '''
+            }
             always{
                 sh '''
                 make stop
