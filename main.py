@@ -154,11 +154,19 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             failed_count += 1
             reprocess_doc()
         
-        # Check if processing is complete
+        # Wait until processed + failed == total_files
+        if (processed + failed) >= total_files:
+            print(f"\n✅ All processing complete!")
+            print(f"Processed: {processed}/{total_files}")
+            print(f"Failed: {failed}/{total_files}")
+            return processed
+        
+        # Safety: Exit early if processing stopped
         if processing == 0 and pending == 0 and processed + failed < total_files:
-            print(f"\nAll processing complete!")
-            print(f"Processed: {processed}/{all_count}")
-            return counts['processed']
+            print(f"\nWARNING: No processing activity, but {total_files - (processed + failed)} files not complete")
+            # Don't exit, keep waiting to be sure
+            time.sleep(check_interval)
+            continue
         
         time.sleep(check_interval)
     
