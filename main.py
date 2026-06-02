@@ -166,48 +166,8 @@ def formatted_time(seconds):
     return str(timedelta(seconds=int(seconds)))
 
 if __name__ == "__main__":
-    print("=" * 70)
-    print(f"🕐 Start Time: {start_timestamp}")
-    print(f"📁 HOST_INPUT_DIR: {HOST_INPUT_DIR}")
-    print(f"📋 FILE_TO_PROCESS: {FILE_TO_PROCESS}")
-    print("=" * 70)
-
     check_health()
 
-    # Upload & Process Files 
-    files = get_file_list()
-    total_files = len(files)
-
-    if not files:
-        print("⚠️  No files found to process!")
-        sys.exit(0)
-
-    print(f"Found {total_files} file(s) to process")
-
-    for filename in files:
-        if upload_doc(filename):
-            print(f"{filename} has been uploaded")
-        else:
-            print(f"{filename} failed to load")
-            sys.exit(0)
-
-    # Status Check
-    success_count = wait_until_processing_complete(total_files=total_files)
-
-    # ✅ FINAL SUMMARY
-    end_time = time.time()
-    end_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-    total_elapsed = end_time - start_time
-    
-    print("\n" + "=" * 70)
-    print(f"📊 FINAL SUMMARY")
-    print("=" * 70)
-    print(f"🕐 Start: {start_timestamp}")
-    print(f"🕐 End:   {end_timestamp}")
-    print(f"⏱️  Total Time: {formatted_time(total_elapsed)} ({int(total_elapsed)} seconds)")
-    print(f"✅ Success: {success_count}/{len(files)} files")
-    print("=" * 70)
-    
 
 
 
