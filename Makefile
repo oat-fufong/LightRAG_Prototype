@@ -38,10 +38,11 @@ build:
 		-t $(IMAGE_NAME) .
 
 run:
- 	export LLM_BINDING_API_KEY=$(LLM_BINDING_API_KEY)
- 	export EMBEDDING_BINDING_API_KEY=$(EMBEDDING_BINDING_API_KEY)
+	export LLM_BINDING_API_KEY=$(LLM_BINDING_API_KEY)
+	export EMBEDDING_BINDING_API_KEY=$(EMBEDDING_BINDING_API_KEY)
 	echo "${#EMBEDDING_BINDING_API_KEY}"
 	envsubst < .env.poc.template > .env.temp
+
 	# -d run docker in detached mode.
 	# -rm automatically delete the container as soon as it stops running.
 	docker run -d --rm \
