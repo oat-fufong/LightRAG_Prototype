@@ -28,7 +28,7 @@ pipeline {
             steps {
                 withCredentials([
                     string(
-                        credentialsId: 'oat-test',
+                        credentialsId: 'oat-openrouter',
                         variable: 'OPENROUTER_API_KEY'
                     )
                 ]) {
