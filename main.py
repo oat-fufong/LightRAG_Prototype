@@ -12,7 +12,7 @@ HOST_INPUT_DIR = sys.argv[2]
 FILE_TO_PROCESS = sys.argv[3]  # 'all' = process everything
 CHECK_INTERVAL_RAW = sys.argv[4]  # Check every x seconds
 
-API_KEY = os.environ.get["LLM_BINDING_API_KEY"]
+API_KEY = os.environ.get("LLM_BINDING_API_KEY")
 
 REQUIRED_VARS = [HOST_INPUT_DIR, CHECK_INTERVAL_RAW, API_KEY]
 if any(var is None for var in REQUIRED_VARS):
