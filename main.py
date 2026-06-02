@@ -16,6 +16,8 @@ REQUIRED_VARS = [HOST_INPUT_DIR, CHECK_INTERVAL_RAW]
 if any(var is None for var in REQUIRED_VARS):
     print(f"Missing required environment variables. Exiting.")
     sys.exit(1)
+else:
+    print(f"{REQUIRED_VARS} succesfully loaded.")
 
 CHECK_INTERVAL = int(CHECK_INTERVAL_RAW)
 
