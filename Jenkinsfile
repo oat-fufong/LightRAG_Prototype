@@ -11,8 +11,8 @@ pipeline {
         IMAGE_NAME = 'lightrag'
         IMAGE_TAG = 'test'
         HOST_INPUT_DIR = '/mnt/filestore/ffl-chatbot/prb' 
-        HOST_OUTPUT_DIR = '/mnt/filestore/lightrag' 
-        FILE_TO_PROCESS = '1' 
+        HOST_OUTPUT_DIR = '/home/rapolt/workspace/lightrag-poc/run-lightrag-poc' 
+        FILE_TO_PROCESS = '0' 
         CHECK_INTERVAL_RAW = '5'
     }
 
