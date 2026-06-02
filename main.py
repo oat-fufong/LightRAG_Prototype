@@ -112,10 +112,13 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
     or a document failed
     """
     print("\nWaiting for document processing to complete...")
+
+    attempt = 0
+    max_attempts = 50
     checked_count = 0
     failed_count = 0
 
-    while (failed_count <= 10):
+    while attempt < max_attempts:
         checked_count += 1
         
         counts = get_status_counts()
@@ -152,7 +155,7 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             reprocess_doc()
         
         # Check if processing is complete
-        if processing == 0 and pending == 0 and preprocessed == 0:
+        if processing == 0 and pending == 0 and processed + failed < total_files:
             print(f"\nAll processing complete!")
             print(f"Processed: {processed}/{all_count}")
             return counts['processed']
