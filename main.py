@@ -153,7 +153,7 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             reprocess_doc()
 
         # Wait until processed + failed == total_files
-        if (processed + failed) >= total_files:
+        elif (processed + failed) >= total_files:
 
             print(get_pipeline_status())
 
