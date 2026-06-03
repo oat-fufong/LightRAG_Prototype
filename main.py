@@ -149,6 +149,7 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
         # Check if any documents failed
         if failed > 0:
             print(f"\n⚠️ {failed} document(s) FAILED during processing!")
+            print(get_pipeline_status())
             failed_count += 1
             reprocess_doc()
 
