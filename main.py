@@ -83,9 +83,7 @@ def get_file_list():
         # Scan directory for files
         pattern = os.path.join(HOST_INPUT_DIR, '*')
         files = glob.glob(pattern)
-        # Only add files (not directories)
-        return [f.split('/')[-1] for f in files if os.path.isfile(f)]
-    
+        return [f for f in files if os.path.isfile(f)] 
     else:
         # Split by comma
         return [HOST_INPUT_DIR + '/' + f.strip() + ".txt" for f in FILE_TO_PROCESS.split(',') if f.strip()]
