@@ -149,8 +149,8 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
         print(f"  [{current_time}] [{checked_count}] [{all_status}] ({percent_done:.1f}%)")
         
         # Check if any documents failed
-        if failed > 10:
-            print(f"\n{failed} document(s) FAILED during processing!")
+        if failed > 0:
+            print(f"\n⚠️ {failed} document(s) FAILED during processing!")
             failed_count += 1
             reprocess_doc()
 
@@ -165,18 +165,16 @@ def wait_until_processing_complete(total_files=0, check_interval=CHECK_INTERVAL)
             return processed
         
         # Safety: Exit early if processing stopped
-        if processing == 0 and pending == 0 and processed + failed < total_files:
-            print(f"\nWARNING: No processing activity, but {total_files - (processed + failed)} files not complete")
-            # Don't exit, keep waiting to be sure
-            time.sleep(check_interval)
-            continue
+        if processing == 0 and pending == 0 and preprocessed == 0 and processed + failed < all_count and all_count > 0:
+            print(f"\n⚠️ WARNING: No processing activity, but {all_count - (processed + failed)} files incomplete")
+            break
         
         time.sleep(check_interval)
     
     # Timeout
     print(f"\n⚠️  Timeout: Processing not complete after {failed_count} fails")
     print(get_pipeline_status())
-    sys.exit(0)
+    sys.exit(1)
 
 def formatted_time(seconds):
     """Format seconds into human-readable time"""
