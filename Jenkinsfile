@@ -1,6 +1,5 @@
 pipeline {
     agent { label 'gpu-agent-2' }
-
     environment {
         HTTP_PROXY = 'http://10.0.0.3:3128'
         HTTPS_PROXY = 'http://10.0.0.3:3128'
@@ -12,7 +11,7 @@ pipeline {
         IMAGE_TAG = 'small-data-set_2-9-11'
         HOST_INPUT_DIR = '/mnt/filestore/ffl-chatbot/prb' 
         HOST_OUTPUT_DIR = '/home/rapolt/workspace/lightrag-poc/run-lightrag-poc' 
-        FILE_TO_PROCESS = '2,9,11' 
+        FILE_TO_PROCESS = '1' 
         CHECK_INTERVAL_RAW = '5'
     }
 
@@ -37,7 +36,7 @@ pipeline {
                         make build \
                             LLM_BINDING=openai \
                             LLM_BINDING_HOST=https://openrouter.ai/api/v1 \
-                            LLM_MODEL=deepseek/deepseek-v4-flash \
+                            LLM_MODEL=gpt-4o-mini \
                             LLM_BINDING_API_KEY="$OPENROUTER_API_KEY" \
                             EMBEDDING_BINDING=openai \
                             EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \
