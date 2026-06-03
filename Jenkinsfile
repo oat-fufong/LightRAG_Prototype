@@ -58,7 +58,7 @@ pipeline {
                         make build \
                             LLM_BINDING=openai \
                             LLM_BINDING_HOST=https://openrouter.ai/api/v1 \
-                            LLM_MODEL="${params.LLM_MODEL}" \
+                            LLM_MODEL='${params.LLM_MODEL}' \
                             LLM_BINDING_API_KEY="$OPENROUTER_API_KEY" \
                             EMBEDDING_BINDING=openai \
                             EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \
