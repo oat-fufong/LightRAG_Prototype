@@ -41,7 +41,7 @@ pipeline {
         stage('Prepare LightRAG Server & Proxy') {
             steps {
                 sh '''
-                make clean build \
+                make clean \
                 '''
             }
         }
