@@ -32,7 +32,7 @@ pipeline {
         IMAGE_NAME = 'lightrag'
         IMAGE_TAG = "${params.IMAGE_TAG}"
         HOST_INPUT_DIR = '/mnt/filestore/ffl-chatbot/prb' 
-        HOST_OUTPUT_DIR = '/home/rapolt/workspace/lightrag-poc/run-lightrag-poc' 
+        HOST_OUTPUT_DIR = '/mnt/filestore/lightrag' 
         FILE_TO_PROCESS = "${params.FILE_TO_PROCESS}" 
         CHECK_INTERVAL_RAW = "${params.CHECK_INTERVAL_RAW}"
     }
