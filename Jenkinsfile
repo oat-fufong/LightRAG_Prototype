@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'gpu-agent-2' }
+    agent { label 'gpu-agent-5' }
     parameters {
         string(
             name: 'LLM_MODEL',
