@@ -64,7 +64,8 @@ clean: stop
 	@rm -f .env.temp
 
 copy:
-	mkdir -p $(HOST_OUTPUT_DIR)/$(IMAGE_TAG)
+	sudo mkdir -p $(HOST_OUTPUT_DIR)/$(IMAGE_TAG)
+	sudo chown $(shell id -un) $(HOST_OUTPUT_DIR)/$(IMAGE_TAG)
 	docker cp $(CONTAINER_NAME):/app/data $(HOST_OUTPUT_DIR)/$(IMAGE_TAG)
 	
 
