@@ -89,20 +89,20 @@ pipeline {
                 }
             }
         }
+        stage('Copy Output') {
+            steps {
+                script {
+                    sh '''
+                    make copy stop
+                    '''
+                }
+            }
+        }
     }
     post {
-            success{
-                sh'''
-                make copy stop
-                '''
-            }
-            unsuccessful{
-                sh '''
-                make stop
-                '''
-            }
             always {
                 sh '''
+                docker stop ${CONTAINER_NAME} || true
                 docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true
                 '''
             }
