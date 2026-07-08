@@ -103,7 +103,7 @@ pipeline {
             always {
                 sh '''
                 docker stop ${CONTAINER_NAME} || true
-                docker rmi ${IMAGE_NAME}:${IMAGE_TAG} || true
+                docker rmi --force ${IMAGE_NAME}:${IMAGE_TAG} || true
                 '''
             }
          }
