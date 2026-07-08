@@ -24,12 +24,12 @@ pipeline {
         string(
             name: 'HOST_INPUT_DIR',
             defaultValue: '/mnt/filestore/ffl-chatbot/prb' ,
-            description: 'X seconds between check log'
+            description: 'Path to mount inputs from'
         )
         string(
             name: 'HOST_OUTPUT_DIR',
             defaultValue: '/mnt/filestore/lightrag',
-            description: 'X seconds between check log'
+            description: 'Path to mount outputs to'
         )
     }
     environment {
