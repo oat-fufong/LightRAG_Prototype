@@ -21,6 +21,16 @@ pipeline {
             defaultValue: '60',
             description: 'X seconds between check log'
         )
+        string(
+            name: 'HOST_INPUT_DIR',
+            defaultValue: '/mnt/filestore/ffl-chatbot/prb' ,
+            description: 'X seconds between check log'
+        )
+        string(
+            name: 'HOST_OUTPUT_DIR',
+            defaultValue: '/mnt/filestore/lightrag',
+            description: 'X seconds between check log'
+        )
     }
     environment {
         HTTP_PROXY = 'http://10.0.0.3:3128'
@@ -31,8 +41,8 @@ pipeline {
         CONTAINER_NAME = 'lightrag'
         IMAGE_NAME = 'lightrag'
         IMAGE_TAG = "${params.IMAGE_TAG}"
-        HOST_INPUT_DIR = '/mnt/filestore/ffl-chatbot/prb' 
-        HOST_OUTPUT_DIR = '/mnt/filestore/lightrag' 
+        HOST_INPUT_DIR = "${params.HOST_INPUT_DIR}"
+        HOST_OUTPUT_DIR = "${params.HOST_OUTPUT_DIR}"
         FILE_TO_PROCESS = "${params.FILE_TO_PROCESS}" 
         CHECK_INTERVAL_RAW = "${params.CHECK_INTERVAL_RAW}"
     }
