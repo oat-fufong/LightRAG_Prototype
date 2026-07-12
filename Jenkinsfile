@@ -3,8 +3,18 @@ pipeline {
     parameters {
         string(
             name: 'LLM_MODEL',
-            defaultValue: 'gpt-4o-mini', 
+            defaultValue: 'gpt-4o-mini',
             description: 'LLM Model to use (e.g., gpt-4o-mini, gpt-4o)'
+        )
+        string(
+            name: 'EMBEDDING_MODEL',
+            defaultValue: 'openai/text-embedding-3-small',
+            description: 'Embedding model (OpenRouter format). Must match the model used at query time.'
+        )
+        string(
+            name: 'EMBEDDING_DIM',
+            defaultValue: '1536',
+            description: 'Embedding dimension — must match the model (text-embedding-3-small=1536, bge-m3=1024)'
         )
         string(
             name: 'IMAGE_TAG',
@@ -72,7 +82,8 @@ pipeline {
                             LLM_BINDING_API_KEY='${OPENROUTER_API_KEY}' \
                             EMBEDDING_BINDING=openai \
                             EMBEDDING_BINDING_HOST=https://openrouter.ai/api/v1 \
-                            EMBEDDING_MODEL=openai/text-embedding-3-small \
+                            EMBEDDING_MODEL='${params.EMBEDDING_MODEL}' \
+                            EMBEDDING_DIM='${params.EMBEDDING_DIM}' \
                             EMBEDDING_BINDING_API_KEY='${OPENROUTER_API_KEY}' \
                             run
                         """
