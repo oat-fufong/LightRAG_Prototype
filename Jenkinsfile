@@ -41,6 +41,21 @@ pipeline {
             defaultValue: '/mnt/filestore/lightrag',
             description: 'Path to mount outputs to'
         )
+        string(
+            name: 'QA_FILE',
+            defaultValue: 'experiment/qa_dataset.json',
+            description: 'Path to Q/A JSON file with source_nodes annotations (relative to workspace)'
+        )
+        choice(
+            name: 'CONDITION',
+            choices: ['separated', 'combined'],
+            description: 'Experiment condition: separated = one file per article, combined = one file per law'
+        )
+        string(
+            name: 'QUERY_MODE',
+            defaultValue: 'mix',
+            description: 'LightRAG query mode for retrieval evaluation (local, global, hybrid, naive, mix)'
+        )
     }
     environment {
         HTTP_PROXY = 'http://10.0.0.3:3128'
@@ -53,7 +68,7 @@ pipeline {
         IMAGE_TAG = "${params.IMAGE_TAG}"
         HOST_INPUT_DIR = "${params.HOST_INPUT_DIR}"
         HOST_OUTPUT_DIR = "${params.HOST_OUTPUT_DIR}"
-        FILE_TO_PROCESS = "${params.FILE_TO_PROCESS}" 
+        FILE_TO_PROCESS = "${params.FILE_TO_PROCESS}"
         CHECK_INTERVAL_RAW = "${params.CHECK_INTERVAL_RAW}"
     }
 
@@ -61,7 +76,7 @@ pipeline {
         stage('Prepare LightRAG Server & Proxy') {
             steps {
                 sh '''
-                make clean \
+                make clean
                 '''
             }
         }
@@ -100,22 +115,37 @@ pipeline {
                 }
             }
         }
-        stage('Copy Output') {
+        stage('Evaluate Retrieval') {
             steps {
-                script {
-                    sh '''
-                    make copy stop
-                    '''
-                }
+                sh """
+                python3 experiment/eval_queries.py \
+                    --server http://localhost:${LIGHTRAG_HOST_PORT} \
+                    --qa-file '${params.QA_FILE}' \
+                    --condition '${params.CONDITION}' \
+                    --mode '${params.QUERY_MODE}' \
+                    --output experiment/results/${params.IMAGE_TAG}_retrieval.json
+                """
+            }
+        }
+        stage('Copy Output & Analyze Cost') {
+            steps {
+                sh '''
+                make copy stop
+                '''
+                sh """
+                python3 experiment/analyze_cost.py \
+                    --cache '${HOST_OUTPUT_DIR}/${IMAGE_TAG}/data/rag_storage/kv_store_llm_response_cache.json' \
+                    --output experiment/results/${params.IMAGE_TAG}_cost.json
+                """
             }
         }
     }
     post {
-            always {
-                sh '''
-                docker stop ${CONTAINER_NAME} || true
-                docker rmi --force ${IMAGE_NAME}:${IMAGE_TAG} || true
-                '''
-            }
-         }
+        always {
+            sh '''
+            docker stop ${CONTAINER_NAME} || true
+            docker rmi --force ${IMAGE_NAME}:${IMAGE_TAG} || true
+            '''
+        }
+    }
 }
