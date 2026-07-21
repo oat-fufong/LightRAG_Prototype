@@ -18,16 +18,27 @@ import sys
 from pathlib import Path
 
 
+def safe_stem(id_: str) -> str:
+    """Make id_ safe as a filename.
+    Thai law sections can be '24/1', '82/3' — the '/' becomes a path separator on Linux.
+    Replace with '_' so the filesystem doesn't interpret it as a directory.
+    """
+    return id_.replace("/", "_")
+
+
 def law_name_from_id(id_: str) -> str:
     """Strip the trailing article number to get the parent law name.
-    e.g. 'พรบ.พลังงาน พ.ศ. 2535-1' → 'พรบ.พลังงาน พ.ศ. 2535'
+    Handles plain (-1, -24) and sub-article (-24/1, -24_1) suffixes.
+    e.g. 'พรบ.พลังงาน พ.ศ. 2535-24/1' → 'พรบ.พลังงาน พ.ศ. 2535'
     """
-    return re.sub(r"-\d+$", "", id_)
+    return re.sub(r"-[\d/_]+$", "", id_)
 
 
-def prepare(input_path: str, output_dir: str) -> None:
+def prepare(input_path: str, output_dir: str, limit: int | None = None) -> None:
     raw = Path(input_path).read_text(encoding="utf-8")
     nodes = json.loads(raw)
+    if limit is not None:
+        nodes = nodes[:limit]
 
     sep_dir = Path(output_dir) / "separated"
     com_dir = Path(output_dir) / "combined"
@@ -38,7 +49,7 @@ def prepare(input_path: str, output_dir: str) -> None:
     for node in nodes:
         id_ = node["id_"]
         text = node["text"]
-        (sep_dir / f"{id_}.txt").write_text(text, encoding="utf-8")
+        (sep_dir / f"{safe_stem(id_)}.txt").write_text(text, encoding="utf-8")
 
     # ── Condition B: one file per law ────────────────────────────────────────
     laws: dict[str, list[str]] = {}
@@ -66,6 +77,12 @@ if __name__ == "__main__":
         default="experiment/data",
         help="Root output directory (default: experiment/data)",
     )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Cap the number of nodes to process (default: all)",
+    )
     args = parser.parse_args()
 
-    prepare(args.input, args.output_dir)
+    prepare(args.input, args.output_dir, args.limit)
