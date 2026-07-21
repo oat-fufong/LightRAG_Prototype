@@ -156,7 +156,7 @@ pipeline {
                 python3 experiment/compare_cost.py \
                     --separated '${params.HOST_OUTPUT_DIR}/${SEP_TAG}/results/cost.json' \
                     --combined  '${params.HOST_OUTPUT_DIR}/${COM_TAG}/results/cost.json' \
-                    | tee '${params.HOST_OUTPUT_DIR}/${params.RUN_TAG}-comparison.txt'
+                    | sudo tee '${params.HOST_OUTPUT_DIR}/${params.RUN_TAG}-comparison.txt'
                 """
             }
         }
