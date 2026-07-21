@@ -133,9 +133,12 @@ pipeline {
                 make copy stop
                 '''
                 sh """
+                mkdir -p '${HOST_OUTPUT_DIR}/${IMAGE_TAG}/results'
                 python3 experiment/analyze_cost.py \
                     --cache '${HOST_OUTPUT_DIR}/${IMAGE_TAG}/data/rag_storage/kv_store_llm_response_cache.json' \
-                    --output experiment/results/${params.IMAGE_TAG}_cost.json
+                    --output '${HOST_OUTPUT_DIR}/${IMAGE_TAG}/results/cost.json'
+                cp experiment/results/${params.IMAGE_TAG}_retrieval.json \
+                    '${HOST_OUTPUT_DIR}/${IMAGE_TAG}/results/retrieval.json'
                 """
             }
         }
