@@ -14,7 +14,6 @@ Upload the contents of the desired directory to HOST_INPUT_DIR before running Je
 import argparse
 import json
 import re
-import shutil
 import sys
 from pathlib import Path
 
@@ -46,12 +45,16 @@ def prepare(input_path: str, output_dir: str, limit: int | None = None) -> None:
     if limit is not None:
         nodes = nodes[:limit]
 
-    sep_dir = Path(output_dir) / "separated"
-    com_dir = Path(output_dir) / "combined"
+    cwd = Path.cwd().resolve()
+    sep_dir = (cwd / output_dir / "separated").resolve()
+    com_dir = (cwd / output_dir / "combined").resolve()
     for d in (sep_dir, com_dir):
-        if d.exists():
-            shutil.rmtree(d)
-        d.mkdir(parents=True)
+        if not str(d).startswith(str(cwd)):
+            print(f"ERROR: output directory {d} escapes the working directory — aborting", file=sys.stderr)
+            sys.exit(1)
+        d.mkdir(parents=True, exist_ok=True)
+        for f in d.glob("*.txt"):
+            f.unlink()
 
     # ── Condition A: one file per node ──────────────────────────────────────
     for node in nodes:

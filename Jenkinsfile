@@ -52,8 +52,8 @@ pipeline {
         IMAGE_NAME         = 'lightrag'
         SEP_TAG = "${params.RUN_TAG}-separated"
         COM_TAG = "${params.RUN_TAG}-combined"
-        SEP_INPUT = "${WORKSPACE}/experiment/data/separated"
-        COM_INPUT = "${WORKSPACE}/experiment/data/combined"
+        SEP_INPUT = "${WORKSPACE}/experiment/data/${params.RUN_TAG}/separated"
+        COM_INPUT = "${WORKSPACE}/experiment/data/${params.RUN_TAG}/combined"
     }
 
     stages {
@@ -63,7 +63,7 @@ pipeline {
                 sh """
                 python3 experiment/prepare_data.py \
                     --input '${params.JSON_DATASET}' \
-                    --output-dir experiment/data \
+                    --output-dir 'experiment/data/${params.RUN_TAG}' \
                     ${params.MAX_NODES ? "--limit ${params.MAX_NODES}" : ''}
                 """
             }
