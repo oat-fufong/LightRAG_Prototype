@@ -63,7 +63,7 @@ def prepare(input_path: str, output_dir: str, limit: int | None = None) -> None:
         laws.setdefault(law, []).append(node["text"])
 
     for law_name, texts in laws.items():
-        (com_dir / f"{law_name}.txt").write_text("\n\n".join(texts), encoding="utf-8")
+        (com_dir / f"{safe_stem(law_name)}.txt").write_text("\n\n".join(texts), encoding="utf-8")
 
     print(f"Separated : {len(nodes)} files → {sep_dir}")
     print(f"Combined  : {len(laws)} files  → {com_dir}")
