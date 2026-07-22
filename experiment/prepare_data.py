@@ -22,8 +22,13 @@ def safe_stem(id_: str) -> str:
     """Make id_ safe as a filename.
     Thai law sections can be '24/1', '82/3' — the '/' becomes a path separator on Linux.
     Replace with '_' so the filesystem doesn't interpret it as a directory.
+    Also truncates to 251 bytes so the full name + '.txt' stays within Linux's 255-byte limit.
     """
-    return id_.replace("/", "_")
+    stem = id_.replace("/", "_")
+    encoded = stem.encode("utf-8")
+    if len(encoded) > 251:
+        stem = encoded[:251].decode("utf-8", errors="ignore")
+    return stem
 
 
 def law_name_from_id(id_: str) -> str:
