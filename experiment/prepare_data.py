@@ -14,6 +14,7 @@ Upload the contents of the desired directory to HOST_INPUT_DIR before running Je
 import argparse
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -47,8 +48,10 @@ def prepare(input_path: str, output_dir: str, limit: int | None = None) -> None:
 
     sep_dir = Path(output_dir) / "separated"
     com_dir = Path(output_dir) / "combined"
-    sep_dir.mkdir(parents=True, exist_ok=True)
-    com_dir.mkdir(parents=True, exist_ok=True)
+    for d in (sep_dir, com_dir):
+        if d.exists():
+            shutil.rmtree(d)
+        d.mkdir(parents=True)
 
     # ── Condition A: one file per node ──────────────────────────────────────
     for node in nodes:
