@@ -50,8 +50,9 @@ pipeline {
         LIGHTRAG_PORT      = '9621'
         CONTAINER_NAME     = 'lightrag'
         IMAGE_NAME         = 'lightrag'
-        SEP_TAG = "${params.RUN_TAG}-separated"
-        COM_TAG = "${params.RUN_TAG}-combined"
+        HOST_OUTPUT_DIR    = "${HOST_OUTPUT_DIR}"
+        SEP_TAG   = "${params.RUN_TAG}-separated"
+        COM_TAG   = "${params.RUN_TAG}-combined"
         SEP_INPUT = "${WORKSPACE}/experiment/data/${params.RUN_TAG}/separated"
         COM_INPUT = "${WORKSPACE}/experiment/data/${params.RUN_TAG}/combined"
     }
@@ -97,14 +98,14 @@ pipeline {
                 """
                 sh """
                 make copy stop \
-                    HOST_OUTPUT_DIR='${params.HOST_OUTPUT_DIR}' \
+                    HOST_OUTPUT_DIR='${HOST_OUTPUT_DIR}' \
                     IMAGE_TAG='${SEP_TAG}'
                 """
                 sh """
-                mkdir -p '${params.HOST_OUTPUT_DIR}/${SEP_TAG}/results'
+                mkdir -p '${HOST_OUTPUT_DIR}/${SEP_TAG}/results'
                 python3 experiment/analyze_cost.py \
-                    --cache '${params.HOST_OUTPUT_DIR}/${SEP_TAG}/data/rag_storage/kv_store_llm_response_cache.json' \
-                    --output '${params.HOST_OUTPUT_DIR}/${SEP_TAG}/results/cost.json'
+                    --cache '${HOST_OUTPUT_DIR}/${SEP_TAG}/data/rag_storage/kv_store_llm_response_cache.json' \
+                    --output '${HOST_OUTPUT_DIR}/${SEP_TAG}/results/cost.json'
                 """
             }
         }
@@ -138,14 +139,14 @@ pipeline {
                 """
                 sh """
                 make copy stop \
-                    HOST_OUTPUT_DIR='${params.HOST_OUTPUT_DIR}' \
+                    HOST_OUTPUT_DIR='${HOST_OUTPUT_DIR}' \
                     IMAGE_TAG='${COM_TAG}'
                 """
                 sh """
-                mkdir -p '${params.HOST_OUTPUT_DIR}/${COM_TAG}/results'
+                mkdir -p '${HOST_OUTPUT_DIR}/${COM_TAG}/results'
                 python3 experiment/analyze_cost.py \
-                    --cache '${params.HOST_OUTPUT_DIR}/${COM_TAG}/data/rag_storage/kv_store_llm_response_cache.json' \
-                    --output '${params.HOST_OUTPUT_DIR}/${COM_TAG}/results/cost.json'
+                    --cache '${HOST_OUTPUT_DIR}/${COM_TAG}/data/rag_storage/kv_store_llm_response_cache.json' \
+                    --output '${HOST_OUTPUT_DIR}/${COM_TAG}/results/cost.json'
                 """
             }
         }
@@ -154,9 +155,9 @@ pipeline {
             steps {
                 sh """
                 python3 experiment/compare_cost.py \
-                    --separated '${params.HOST_OUTPUT_DIR}/${SEP_TAG}/results/cost.json' \
-                    --combined  '${params.HOST_OUTPUT_DIR}/${COM_TAG}/results/cost.json' \
-                    | sudo tee '${params.HOST_OUTPUT_DIR}/${params.RUN_TAG}-comparison.txt'
+                    --separated '${HOST_OUTPUT_DIR}/${SEP_TAG}/results/cost.json' \
+                    --combined  '${HOST_OUTPUT_DIR}/${COM_TAG}/results/cost.json' \
+                    | sudo tee '${HOST_OUTPUT_DIR}/${params.RUN_TAG}-comparison.txt'
                 """
             }
         }
